@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo 'Tests completed'",
-    "lint": "echo 'Lint completed'",
-    "tsc": "echo 'Tsc completed'",
+    "test": "echo 'tests completed'",
+    "lint": "echo 'lint completed'",
+    "tsc": "echo 'tsc completed'",
     "build": "node build.js",
     "start": "node index.js"
   },
