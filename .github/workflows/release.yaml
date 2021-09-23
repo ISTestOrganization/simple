@@ -5,11 +5,13 @@ on:
   release:
     types: [published]
 
-runs:
-  steps:
-    - run: echo 'tag published event'
-    # - uses: actions/checkout@v2
-    # - name: create git tag
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'tag published event'
+      # - uses: actions/checkout@v2
+      # - name: create git tag
 
-    # - name: build image
-    # - name: push image to repo
+      # - name: build image
+      # - name: push image to repo
