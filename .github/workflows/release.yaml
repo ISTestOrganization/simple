@@ -1,5 +1,4 @@
 name: release
-author: is
 
 on:
   release:
