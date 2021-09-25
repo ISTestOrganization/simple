@@ -1,0 +1,10 @@
+name: deploy
+description: none
+inputs: {}
+outputs: {}
+runs:
+  using: composite
+  steps:
+    - name: test
+      run: echo "🎉 deploy"
+      shell: bash
