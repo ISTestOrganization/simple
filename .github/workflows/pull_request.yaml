@@ -2,6 +2,10 @@ name: pull_request
 
 on: [push]
 
+env:
+  GCP_DOCKER_REGISTRY: europe-west3-docker.pkg.dev
+  DOCKER_IMAGE_TAG: europe-west3-docker.pkg.dev/simple-326714/docker/simple:${{ github.sha }}
+
 jobs:
   pull_request:
     runs-on: ubuntu-latest
@@ -19,3 +23,6 @@ jobs:
       - uses: ./.github/actions/deploy
         with:
           GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GCP_DOCKER_REGISTRY: ${{ env.GCP_DOCKER_REGISTRY }}
+          DOCKER_IMAGE_TAG: ${{ env.DOCKER_IMAGE_TAG }}

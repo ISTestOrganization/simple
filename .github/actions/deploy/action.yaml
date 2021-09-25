@@ -3,12 +3,28 @@ description: none
 inputs:
   GCP_PROJECT_ID:
     required: true
+  GCP_SA_KEY:
+    required: true
+  GCP_DOCKER_REGISTRY:
+    required: true
   DOCKER_IMAGE_TAG:
     required: true
 outputs: {}
 runs:
   using: composite
   steps:
-    - name: test
-      run: echo "🎉 deploy ${{ inputs.GCP_PROJECT_ID }}"
-      shell: bash
+    - uses: actions/checkout@v2
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ inputs.GCP_PROJECT_ID }}
+        service_account_key: ${{ inputs.GCP_SA_KEY }}
+        export_default_credentials: true
+    - name: configure docker to use gcloud registry
+      run: gcloud auth configure-docker ${{ inputs.GCP_DOCKER_REGISTRY }} # configure-docker command does expects specific registries
+    - name: print docker/config.json
+      run: cat ~/.docker/config.json
+    - name: build docker image
+      run: docker build --tag ${{ inputs.DOCKER_IMAGE_TAG }} .
+    - name: push docker image
+      run: docker push ${{ inputs.DOCKER_IMAGE_TAG }}
