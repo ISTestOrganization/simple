@@ -22,10 +22,13 @@ runs:
         export_default_credentials: true
     - name: configure docker to use gcloud registry
       run: gcloud auth configure-docker ${{ inputs.GCP_DOCKER_REGISTRY }} # configure-docker command does expects specific registries
+      shell: bash # default for whole file for composite actions ? blah
     - name: print docker/config.json
       run: cat ~/.docker/config.json
-      shell: bash # default for whole file for composite actions ? blah
-    # - name: build docker image
-    #   run: docker build --tag ${{ inputs.DOCKER_IMAGE_TAG }} .
-    # - name: push docker image
-    #   run: docker push ${{ inputs.DOCKER_IMAGE_TAG }}
+      shell: bash
+    - name: build docker image
+      run: docker build --tag ${{ inputs.DOCKER_IMAGE_TAG }} .
+      shell: bash
+    - name: push docker image
+      run: docker push ${{ inputs.DOCKER_IMAGE_TAG }}
+      shell: bash
