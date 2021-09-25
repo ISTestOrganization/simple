@@ -1,6 +1,9 @@
 name: pull_request
 
-on: [push]
+on:
+  - push
+    branches:
+      - develop
 
 env:
   GCP_DOCKER_REGISTRY: europe-west3-docker.pkg.dev
