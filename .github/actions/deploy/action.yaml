@@ -24,6 +24,7 @@ runs:
       run: gcloud auth configure-docker ${{ inputs.GCP_DOCKER_REGISTRY }} # configure-docker command does expects specific registries
     - name: print docker/config.json
       run: cat ~/.docker/config.json
+      shell: bash
     # - name: build docker image
     #   run: docker build --tag ${{ inputs.DOCKER_IMAGE_TAG }} .
     # - name: push docker image
