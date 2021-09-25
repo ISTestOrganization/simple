@@ -1,10 +1,14 @@
 name: deploy
 description: none
-inputs: {}
+inputs:
+  GCP_PROJECT_ID:
+    required: true
+  DOCKER_IMAGE_TAG:
+    required: true
 outputs: {}
 runs:
   using: composite
   steps:
     - name: test
-      run: echo "🎉 deploy"
+      run: echo "🎉 deploy ${{ inputs.GCP_PROJECT_ID }}"
       shell: bash
