@@ -1,7 +1,7 @@
 name: pull_request
 
 on:
-  - push
+  push:
     branches:
       - develop
 
