@@ -2,13 +2,13 @@ name: deploy
 description: none
 inputs:
   GCP_PROJECT_ID:
-    required: true
+    required: false
   GCP_SA_KEY:
-    required: true
+    required: false
   GCP_DOCKER_REGISTRY:
-    required: true
+    required: false
   DOCKER_IMAGE_TAG:
-    required: true
+    required: false
 outputs: {}
 runs:
   using: composite
