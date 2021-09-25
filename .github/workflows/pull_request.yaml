@@ -17,3 +17,5 @@ jobs:
       - run: echo ${GITHUB_SHA}
       # - run: docker build --tag ${GITHUB_SHA} .
       - uses: ./.github/actions/deploy
+        with:
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
