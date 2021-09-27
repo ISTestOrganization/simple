@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: simple-container
-          image: europe-west3-docker.pkg.dev/simple-326714/docker/simple:latest
+          image: europe-west3-docker.pkg.dev/simple-326714/docker/simple:v1 # change to actual tag when helm arrives
           ports:
             - name: http
               containerPort: 3000
