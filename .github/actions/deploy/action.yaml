@@ -39,9 +39,6 @@ runs:
     - name: configure kubectl to use the specified gcloud k8s cluster
       run: gcloud container clusters get-credentials ${{ inputs.GCP_K8S_CLUSTER_ID }} --zone ${{ inputs.GCP_K8S_CLUSTER_ZONE }}
       shell: bash
-    - name: pwd
-      run: pwd && ls
-      shell: bash
     - name: deploy image to k8s engine
-      run: kubectl apply -f ./../../../k8s/deployment.yaml
+      run: kubectl apply -f ./k8s/deployment.yaml
       shell: bash
