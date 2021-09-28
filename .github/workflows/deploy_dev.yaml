@@ -1,4 +1,4 @@
-name: pull_request
+name: deploy_dev
 
 on:
   push:
