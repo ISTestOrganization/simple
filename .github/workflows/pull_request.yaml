@@ -15,12 +15,12 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: npm install
+      - run: npm install --global yarn
 
-      - run: npm run lint
+      - run: yarn lint
 
-      - run: npm run tsc
+      - run: yarn tsc
 
-      - run: npm run test
+      - run: yarn test
 
-      - run: npm run build
+      - run: yarn build
