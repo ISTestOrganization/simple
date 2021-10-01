@@ -28,4 +28,3 @@ data:
     {{- range tuple "small" "medium" "large" }} # can iterate inline slices ( tuples )
     - {{ . }} 
     {{- end }}  
-  
