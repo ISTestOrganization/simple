@@ -3,7 +3,7 @@ name: release
 on:
   release:
     types: [published]
-    
+
 env:
   APP_NAME: simple
   GCP_PROJECT_ID: simple-326714
@@ -15,7 +15,7 @@ jobs:
   vars:
     runs-on: ubuntu-latest
     outputs:
-      DOCKER_IMAGE_REF: ${{ steps.helm.outputs.DOCKER_IMAGE_TAG }}
+      DOCKER_IMAGE_TAG: ${{ steps.helm.outputs.DOCKER_IMAGE_TAG }}
       HELM_CHART_REF: ${{ steps.docker.outputs.HELM_CHART_REF }}
     steps:
       - id: docker
