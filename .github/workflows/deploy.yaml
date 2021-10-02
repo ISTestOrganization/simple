@@ -43,6 +43,7 @@ jobs:
       - uses: azure/setup-helm@v1
         with:
           version: ${{ env.HELM_VERSION }}
+        run: export HELM_EXPERIMENTAL_OCI=1
       
       - name: configure helm to use artifact registry
         run: gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin ${{ env.GCP_REGISTRY }}
