@@ -4,7 +4,7 @@ import React from "react";
 interface AllProps extends AppProps {
   test: any;
   nextPublicTest: any;
-  newTest: any;
+  envVar: any;
 }
 
 function MyApp({ Component, pageProps, ...rest }: AllProps) {
@@ -21,9 +21,9 @@ function MyApp({ Component, pageProps, ...rest }: AllProps) {
         <div>client: {process.env.NEXT_PUBLIC_TEST}</div>
       </div>
       <div>
-        <h3>NEW_TEST</h3>
-        <div>props: {rest.newTest}</div>
-        <div>client: {process.env.NEW_TEST}</div>
+        <h3>ENV_VAR</h3>
+        <div>props: {rest.envVar}</div>
+        <div>client: {process.env.ENV_VAR}</div>
       </div>
     </React.Fragment>
   );
@@ -33,7 +33,7 @@ MyApp.getInitialProps = async (ctx: any) => {
   return {
     test: process.env.TEST,
     nextPublicTest: process.env.NEXT_PUBLIC_TEST,
-    newTest: process.env.NEW_TEST,
+    newTest: process.env.ENV_VAR,
   };
 };
 export default MyApp;

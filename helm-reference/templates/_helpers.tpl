@@ -5,4 +5,5 @@
     date: {{ now | htmlDate }}
     chart: {{ .Chart.Name }}
     version: {{ .Chart.Version }}
+    app: simple
 {{- end }}

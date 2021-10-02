@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: simple
+  template:
+    metadata:
+      labels:
+        app: simple
+    spec:
+      containers:
+        - name: simple-container
+          image: europe-west3-docker.pkg.dev/simple-326714/docker/simple:v1 # change to actual tag when helm arrives
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: ENV_VAR
+              value: {{ .Values.env.ENV_VAR }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: simple
+  ports:
+    - name: http
+      protocol: TCP
+      targetPort: 3000
+      port: 80
