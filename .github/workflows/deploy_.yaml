@@ -56,6 +56,7 @@ jobs:
 
       - name: deploy
         run: helm upgrade ${{ env.HELM_RELEASE_NAME }} ${{ needs.vars.outputs.HELM_CHART_REF }} --values helm/values-${{ env.ENV }}.yaml --install --reset-values --kubeconfig $HOME/.kube/config --wait 
+        # TODO: helm cant find kubeconfig for some reason
 
 
 
