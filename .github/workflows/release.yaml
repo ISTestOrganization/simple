@@ -62,6 +62,8 @@ jobs:
       - uses: azure/setup-helm@v1
         with:
           version: ${{ env.HELM_VERSION }}
+
+      - name: export HELM_EXPERIMENTAL_OCI=1
         run: export HELM_EXPERIMENTAL_OCI=1
       
       - name: configure helm to use artifact registry
