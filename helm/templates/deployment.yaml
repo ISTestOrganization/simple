@@ -18,6 +18,10 @@ spec:
           ports:
             - name: http
               containerPort: 3000
+          env:
+            - name: ENV_VAR
+              value: {{ .Values.env.ENV_VAR }}
+
 ---
 apiVersion: v1
 kind: Service

@@ -2,10 +2,19 @@ FROM node:16-alpine AS setup
 
 WORKDIR /workdir
 
-COPY index.js build.js package.json package-lock.json ./
+COPY pages pages
+COPY public public
+COPY \
+    next-env.d.ts \
+    next.config.js \
+    package.json \
+    server.js \
+    tsconfig.json \
+    yarn.lock \
+    ./
 
-RUN npm install
+RUN yarn install
 
-RUN npm run build
+RUN yarn build
 
-CMD ["npm", "start"]
+CMD ["yarnn", "start"]

@@ -1,26 +1,23 @@
 {
-  "name": "simple",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo 'tests completed'",
-    "lint": "echo 'lint completed'",
-    "tsc": "echo 'tsc completed'",
-    "build": "node build.js",
-    "start": "node index.js"
+    "dev": "NEW_TEST=3 next dev",
+    "build": "NEW_TEST=3 next build",
+    "start": "TEST=5 NEW_TEST=4 NEXT_PUBLIC_TEST=6 next start",
+    "lint": "next lint",
+    "test": "echo 'Testing completed'"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ISTestOrganization/simple.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ISTestOrganization/simple/issues"
-  },
-  "homepage": "https://github.com/ISTestOrganization/simple#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "next": "11.1.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.26",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2",
+    "typescript": "4.4.3"
   }
 }

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.favouriteDrink }}-config-map
+  {{- template "simple-chart.labels" . }} # pass a context as last param
+data:
+  myvalue: "Hello world!"
+  drink: {{ .Values.favourite.drink | quote }}
+  {{- $release := .Release -}}
+  {{- with .Values.favourite }}
+  food: {{ .food | repeat 2 | upper | quote }} # operators can be chained
+  rootScopeInWithBlock: {{ $.Release.Name }}
+  variableRelease: {{ $release.Name }}
+  {{- end }}
+  rootScopeOutsideWithBlock: {{ $.Release.Name }}
+  {{- if true }}
+  mug: "mug"
+  {{- end }}
+  toppings: |-
+    {{- range .Values.pizzaToppings }} 
+    - {{ . | title | quote }} # . is the "current" value
+    {{- end }}
+  toppings2: |-
+    {{- range $index, $topping := .Values.pizzaToppings }} # variables are defined using := (as in go)
+    {{ $index }}: {{ $topping }}
+    {{- end }}
+  sizes: |-
+    {{- range tuple "small" "medium" "large" }} # can iterate inline slices ( tuples )
+    - {{ . }} 
+    {{- end }}  
