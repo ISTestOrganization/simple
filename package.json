@@ -6,7 +6,8 @@
     "dev": "NEW_TEST=3 next dev",
     "build": "NEW_TEST=3 next build",
     "start": "TEST=5 NEW_TEST=4 NEXT_PUBLIC_TEST=6 next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "echo 'Testing completed'"
   },
   "dependencies": {
     "next": "11.1.2",
