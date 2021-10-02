@@ -38,21 +38,21 @@ jobs:
       - name: test
         run: echo ayyy
 
-      # - uses: google-github-actions/setup-gcloud@master
-      #   with:
-      #     project_id: ${{ secrets.GCP_PROJECT_ID }}
-      #     service_account_key: ${{ secrets.GCP_SA_KEY }}
-      #     export_default_credentials: true
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
 
-      # - uses: azure/setup-helm@v1
-      #   with:
-      #     version: ${{ env.HELM_VERSION }}
+      - uses: azure/setup-helm@v1
+        with:
+          version: ${{ env.HELM_VERSION }}
       
-      # - name: configure helm to use artifact registry
-      #   run: gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin ${{ env.GCP_REGISTRY }}
+      - name: configure helm to use artifact registry
+        run: gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin ${{ env.GCP_REGISTRY }}
 
-      # - name: pull helm chart
-      #   run: helm chart pull 
+      - name: pull helm chart
+        run: helm chart pull ${{ needs.vars.outputs.HELM_CHART_REF }}
 
       # - name: deploy
       #   run: helm upgrade \
