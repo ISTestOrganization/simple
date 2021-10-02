@@ -17,6 +17,7 @@ env:
   GCP_REGISTRY: europe-west3-docker.pkg.dev
   HELM_VERSION: v3.6.0
   HELM_RELEASE_NAME: simple-helm-release
+  HELM_EXPERIMENTAL_OCI: 1
   VERSION: ${{ inputs.version }}
 
 jobs:
@@ -43,9 +44,6 @@ jobs:
       - uses: azure/setup-helm@v1
         with:
           version: ${{ env.HELM_VERSION }}
-      
-      - name: export HELM_EXPERIMENTAL_OCI=1
-        run: export HELM_EXPERIMENTAL_OCI=1
       
       - name: configure helm to use artifact registry
         run: gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin ${{ env.GCP_REGISTRY }}
