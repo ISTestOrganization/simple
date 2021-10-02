@@ -51,10 +51,10 @@ jobs:
       - name: save kubeconfig so helm can use it 
         run: |
           mkdir -p $HOME/.kube
-          kubectl config view --raw > ~/.kube/config
+          kubectl config view --raw > $HOME/.kube/config
 
       - name: deploy
-        run: helm upgrade ${{ env.HELM_RELEASE_NAME }} ${{ needs.vars.outputs.HELM_CHART_REF }} --values helm/values-${{ env.ENV }}.yaml --install --reset-values --wait
+        run: helm upgrade ${{ env.HELM_RELEASE_NAME }} ${{ needs.vars.outputs.HELM_CHART_REF }} --values helm/values-${{ env.ENV }}.yaml --install --reset-values --kubeconfig $HOME/.kube/config --wait 
 
 
 
