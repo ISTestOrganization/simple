@@ -3,15 +3,17 @@ name: deploy
 on: 
   workflow_dispatch:
     inputs:
-      env:
+      ENV:
         required: true
         description: 'Environment (development, production)'     
-      version:
+      VERSION:
         required: true
         description:  'Version to deploy ( eg. v1.13; should be available in Artifact Registry )'
 
 env:
   APP_NAME: simple
+  ENV: ${{ github.event.inputs.ENV }}
+  VERSION: ${{ github.event.inputs.VERSION }}
   GCP_PROJECT_ID: simple-326714
   GCP_REGISTRY: europe-west3-docker.pkg.dev
   HELM_VERSION: v3.6.0
@@ -25,7 +27,7 @@ jobs:
       HELM_CHART_REF: ${{ steps.helm.outputs.HELM_CHART_REF }}
     steps:
       - id: helm
-        run: echo "::set-output name=HELM_CHART_REF::${{ env.GCP_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/helm/${{ env.APP_NAME }}:${{ inputs.version }}"
+        run: echo "::set-output name=HELM_CHART_REF::${{ env.GCP_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/helm/${{ env.APP_NAME }}:${{ env.VERSION }}"
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,7 +52,7 @@ jobs:
         # run: helm chart pull ${{ needs.vars.outputs.HELM_CHART_REF }}
 
       - name: deploy
-        run: helm upgrade ${{ env.HELM_RELEASE_NAME }} ${{ needs.vars.outputs.HELM_CHART_REF }} --values helm/values-${{ inputs.env }}.yaml --install --reset-values --wait
+        run: helm upgrade ${{ env.HELM_RELEASE_NAME }} ${{ needs.vars.outputs.HELM_CHART_REF }} --values helm/values-${{ env.ENV }}.yaml --install --reset-values --wait
 
 
 
