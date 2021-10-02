@@ -18,3 +18,30 @@
 
 ## run helm locally and print output
 helm install --debug --dry-run name-of-chart ./location/
+
+## configure helm for a certain registry
+* you should have setup gcloud with credentials that can access the registry
+
+`gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev`
+
+## create helm chart
+`helm chart save {chart_dir} {chart_ref}`
+
+* where tag is `{region}-docker.pkg.dev/{gcp_project_id}/{path_in_registry}:{version}`
+
+## push helm chart
+`helm chart push {tag}`
+
+## deploy helm chart ( install / upgrade )
+* this is essentially an upsert
+
+```helm upgrade \
+    {release_name} {chart_ref} \
+    --values {path_to_override_values} \
+    --install \
+    --reset-values \
+    --wait
+```
+
+## bring a helm chart down ( uninstall )
+`helm uninstall {chart_ref}`

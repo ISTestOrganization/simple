@@ -4,16 +4,17 @@ on:
   release:
     types: [published]
 env:
-  #            gc location for registry -docker.pkg.dev
+  APP_NAME: simple
+  GCP_PROJECT_ID: simple-326714
   GCP_REGISTRY: europe-west3-docker.pkg.dev
-  #                        gc project / registry folder / project ( as in app ) name
-  GCP_REGISTRY_DOCKER_PATH: simple-326714/docker/simple
-  VERSION: ${{ github.event.release.tag_name }}
+  HELM_VERSION: v3.6.0
 
-  # for simplicity
-  DOCKER_IMAGE_TAG: europe-west3-docker.pkg.dev/simple-326714/docker/simple:${{ github.event.release.tag_name }}
+  VERSION: ${{ github.event.release.tag_name }}
+  DOCKER_IMAGE_TAG: ${{ env.GCP_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/docker/${{ env.APP_NAME }}:${{ env.VERSION }}
+  HELM_CHART_REF: ${{ env.GCP_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/helm/${{ env.APP_NAME }}:${{ env.VERSION }}
+
 jobs:
-  release:
+  release_docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -35,3 +36,27 @@ jobs:
 
       - name: push docker image
         run: docker push ${{ env.DOCKER_IMAGE_TAG }}
+
+  release_helm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - uses: azure/setup-helm@v1
+        with:
+          version: ${{ env.HELM_VERSION }}
+      
+      - name: configure helm to use artifact registry
+        run: gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin ${{ env.GCP_REGISTRY }}
+
+      - name: build helm chart
+        run: helm chart save ./helm ${{ env.HELM_CHART_REF }}
+
+      - name: push helm chart
+        run: helm chart push ${{ env.HELM_CHART_REF }}
