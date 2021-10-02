@@ -52,12 +52,7 @@ jobs:
         # run: helm chart pull ${{ needs.vars.outputs.HELM_CHART_REF }}
 
       - name: deploy
-        run: helm upgrade \
-        ${{ env.HELM_RELEASE_NAME }} ${{ needs.vars.outputs.HELM_CHART_REF }} \
-        --values helm/values-${{ env.ENV }}.yaml \
-        --install \
-        --reset-values \
-        --wait
+        run: helm upgrade ${{ env.HELM_RELEASE_NAME }} ${{ needs.vars.outputs.HELM_CHART_REF }} --values helm/values-${{ env.ENV }}.yaml --install --reset-values --wait
 
 
 
