@@ -46,7 +46,7 @@ jobs:
           version: ${{ env.HELM_VERSION }}
       
       - name: configure helm to use artifact registry
-        run: gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin ${{ env.GCP_REGISTRY }}
+        run: gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin https://${{ env.GCP_REGISTRY }} # srsly???
 
       # - name: save kubeconfig so helm can use it 
       #   run: |
