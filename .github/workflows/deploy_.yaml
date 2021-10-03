@@ -19,7 +19,8 @@ env:
   HELM_VERSION: v3.6.0
   HELM_RELEASE_NAME: simple-helm-release
   HELM_EXPERIMENTAL_OCI: 1
-
+  DOCKER_CONFIG: $HOME/.docker
+  HELM_REGISTRY_CONFIG: $HOME/.docker/config.json"
 jobs:
   vars:
     runs-on: ubuntu-latest
@@ -48,9 +49,9 @@ jobs:
       - name: configure docker to use artifact registry
         run: gcloud auth configure-docker ${{ env.GCP_REGISTRY}}
       
-      - name: configure helm to use artifact registry
-        run: export DOCKER_CONFIG="$HOME/.docker" \
-          export HELM_REGISTRY_CONFIG="${DOCKER_CONFIG}/config.json"
+      # - name: configure helm to use artifact registry
+      #   run: export DOCKER_CONFIG="$HOME/.docker" \
+      #     export HELM_REGISTRY_CONFIG="${DOCKER_CONFIG}/config.json"
         # gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin https://${{ env.GCP_REGISTRY }} # srsly???
 
       # - name: save kubeconfig so helm can use it 
