@@ -48,11 +48,11 @@ jobs:
       - name: configure helm to use artifact registry
         run: gcloud auth print-access-token | helm registry login -u oauth2accesstoken --password-stdin ${{ env.GCP_REGISTRY }}
 
-      - name: save kubeconfig so helm can use it 
-        run: |
-          mkdir -p $HOME/.kube
-          kubectl config view --raw > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
+      # - name: save kubeconfig so helm can use it 
+      #   run: |
+      #     mkdir -p $HOME/.kube
+      #     kubectl config view --raw > $HOME/.kube/config
+      #     chmod 600 $HOME/.kube/config
 
       - name: deploy
         run: helm upgrade ${{ env.HELM_RELEASE_NAME }} ${{ needs.vars.outputs.HELM_CHART_REF }} --values helm/values-${{ env.ENV }}.yaml --install --reset-values --kubeconfig $HOME/.kube/config --wait 
